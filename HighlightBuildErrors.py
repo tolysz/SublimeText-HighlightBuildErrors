@@ -15,7 +15,12 @@ g_errors = {}
 g_show_errors = True
 g_error_color = "invalid"
 
-def plugin_loaded():
+def plugin_loaded():    
+    settings = sublime.load_settings(SETTINGS_FILE)
+    settings.add_on_change("error_color", update_error_color)
+    update_error_color()
+
+def update_error_color():
     global g_error_color
     settings = sublime.load_settings(SETTINGS_FILE)
     g_error_color = settings.get("error_color", "invalid")
